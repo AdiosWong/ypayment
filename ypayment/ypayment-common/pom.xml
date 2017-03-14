@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>ypayment-parent</artifactId>
+        <groupId>com.yiji.ypayment</groupId>
+        <version>1.0.0-20160601</version>
+    </parent>
+
+    <artifactId>ypayment-common</artifactId>
+
+    <properties>
+        <deploy.skip>true</deploy.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+        </dependency>
+
+        <!-- spring JPA -->
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- 全站脱敏 -->
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-security</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>dtrace-core</artifactId>
+                    <groupId>com.yiji</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dtrace-api</artifactId>
+                    <groupId>com.yiji</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dtrace-dubbo</artifactId>
+                    <groupId>com.yiji</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-yedis</artifactId>
+        </dependency>
+
+        <!-- common tools -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

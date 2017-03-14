@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>补缴订单</title>
+</head>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">代扣信息管理</h2>
+			</div>
+			<!--搜索查询模块-->
+			<form action="/boss/ypayment/payment/repay/repayOrder/list.html"
+				method="post">
+				#csrfInputHidden()
+				<ul class="m-query">
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">缴费订单号：</label> <input type="text"
+								name="search_EQ_paymentOrderNo" value="$!{param.EQ_paymentOrderNo}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">易极付会员ID：</label> <input type="text"
+								name="search_EQ_userId" value="$!{param.EQ_userId}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">商户易极付ID：</label> <input type="text"
+								name="search_EQ_partnerId" value="$!{param.EQ_partnerId}"
+								class="ipt w130" />
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">缴费来源：</label> <input type="text"
+								name="search_EQ_payFrom" value="$!{param.EQ_payFrom}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">缴费类型：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select
+								name="search_EQ_paymentType" 
+								class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{paymentTypeEnum}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_paymentType}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item time-item">
+							<label class="lab">创建时间：</label>
+							<div class="f-time">
+								<input type="date" name="search_GTE_rawAddTime" class="ipt"
+									value="$!{param.GTE_rawAddTime}"/>
+							</div>
+							<span class="to">-</span>
+							<div class="f-time">
+								<input type="date" name="search_LTE_rawAddTime" class="ipt"
+									value="$!{param.LTE_rawAddTime}"/>
+							</div>
+						</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="搜索">
+						<a href="/boss/ypayment/payment/deduct/deductDeposit/list.html" class="u-btn u-btn-green">刷新</a>
+					</li>
+				</ul>
+
+				<table class="m-table" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tr>
+						<th>&nbsp;</th>
+						<th>缴费订单号</th>
+						<th>补缴订单号</th>
+						<th>易极付会员ID</th>
+						<th>商户易极付ID</th>
+						<th>缴费来源</th>
+						<th>缴费类型</th>
+						<th>缴费状态</th>
+						<th>中信缴费状态</th>
+						<th>缴费金额 </th>
+						<th>开始时间</th>
+						<th>结束时间</th>
+						<th>创建时间</th>
+						<th>操 作</th>
+					</tr>
+					#foreach($!data in $!{pageList.pageResults})
+					<tr>
+						<td></td>
+						<td>$!{data.paymentOrderNo}</td>
+						<td>$!{data.repayOrderNo}</td>
+						<td>$!{data.userId}</td>
+						<td>$!{data.partnerId}</td>
+						<td>$!{data.payFrom}</td>
+						<td>$!{data.paymentType.message}</td>
+						<td>$!{data.paymentStatus.message}</td>
+						<td>$!{data.zhongxinStatus.message}</td>
+						<td>$!{data.paymentAmount}</td>
+						<td>$!{dateUtil.simpleFormat($data.startTime)}</td>
+						<td>$!{dateUtil.simpleFormat($data.endTime)}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawAddTime)}</td>
+						<td><a href="/boss/ypayment/payment/repay/repayOrder/show.html?id=$!{data.id}">详情</a>|
+						#if($!{data.paymentStatus.code} == 'FAIL')
+						    <a href="/boss/ypayment/payment/repay/repayOrder/repayment.html?paymentOrderNo=$!{data.paymentOrderNo}">补缴</a>
+						#end
+						</td>
+					</tr>
+					#end
+				</table>
+				#parse("layout/pageList.vm")
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

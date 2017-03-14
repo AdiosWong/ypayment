@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费绑卡</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-bd fn-clear">
+		<div class="top-title">
+			<span class="arw-d"></span>
+			<h2 class="tt">缴费绑卡</h2>
+		</div>
+		<form action="/test/payment/paymentBinding.html" method="post">
+    		#csrfInputHidden()
+    		<div class="m-query">
+				<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">缴费会员：</label> 
+						<label class="txt">$!{userId}</label> 
+						<input type="hidden" name="userId" value="$!{userId}" class="ipt w130" />
+        			</div>
+					<div class="item ml20">
+        				<label class="lab">缴费类型：</label> 
+						<label class="txt">$!{paymentTypeEnum.message()}</label> 
+						<input type="hidden" name="paymentType" value="$!{paymentTypeEnum}" class="ipt w130" />			
+						<input type="hidden" name="resourceName" id="resourceName" class="ipt w130" />
+					</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">卡号：</label> 
+        				<input type="text" name="userCode" class="ipt"/>
+        			</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">缴费单位：</label> 
+        				<div class="jqtransform jqtransform-select3 fn-left">
+        					<select name="resourceCode" id="resourceCode" class="ipt w130">
+        						<option value="">请选择</option>
+        						#foreach($!instInfo in $!{resouceList}) 
+        							<option value="$!{instInfo.instCode}" 
+        							#if($!{param.EQ_status}==$!{instInfo.instCode})
+        							selected="selected"
+        							#end >$!{instInfo.instName}</option>
+        						#end
+        					</select>
+        				</div>
+        			</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<input type="submit" class="u-btn u-btn-green" style="height:32px;" value="确认">
+        				<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+                    </div>
+                </div>
+            </div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+	$("#resourceCode").change(function(){
+		var txt=$(this).find("option:selected").text();
+		$("#resourceName").val(txt);
+	});
+</script>
+</body>
+</html>

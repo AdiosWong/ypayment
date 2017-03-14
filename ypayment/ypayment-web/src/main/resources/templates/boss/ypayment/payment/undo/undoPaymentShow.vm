@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>返销详情</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">返销信息管理-详情</h2>
+			</div>
+			<div class="m-state">
+				##
+				<h4 class="tt">返销信息：</h4>
+			</div>
+			<table class="m-table2 m-table-c" cellpadding="0" cellspacing="0"
+				width="80%">
+				<tr>
+					<td>易极付会员ID：$!{undoPayment.userId}</td>
+					<td>资源路由流水号：$!{undoPayment.routeSerialNumber}</td>
+				</tr>					
+				<tr>
+					<td>返销订单号：$!{undoPayment.undoPaymentNo}</td>
+					<td>缴费订单号：$!{undoPayment.paymentOrderNo}</td>
+				</tr>
+				<tr>
+					<td>缴费账户：$!{undoPayment.payAccount}</td>
+					<td>缴费类型：$!{undoPayment.paymentType.message}</td>
+				</tr>
+				<tr>
+					<td>返销金额： $!{undoPayment.undoAmount}</td>
+					<td>返销类型： $!{undoPayment.undoApproach.message}</td>
+				</tr>
+				<tr>
+				    <td>返销状态： $!{undoPayment.undoStatus.message}</td>
+					<td>交易转账状态： $!{undoPayment.tradeStatus.message}</td>
+				</tr>
+				#if ($!undoPayment.undoStatus == "FAIL")
+				<tr>
+				    <td>缴费错误码：$!{undoPayment.errorCode}</td>
+					<td>缴费错误信息： $!{undoPayment.errorMessage}</td>
+				</tr>
+				#end
+				<tr>
+					<td>创建时间： $!{dateUtil.simpleFormat($undoPayment.rawAddTime)}</td>
+					<td>修改时间：$!{dateUtil.simpleFormat($undoPayment.rawUpdateTime)}</td>
+				</tr>
+			</table>
+
+			<div class="bottom-c">
+				<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.wnd-msg-btn{
+    display:inline-block; 
+    height:25px; 
+	line-height:25px; 
+	color:#fff; 
+	font-weight:700; 
+	padding:0 10px; 
+	border:none; 
+	vertical-align:middle; 
+	text-align:center;
+	cursor:pointer;
+}
+.wnd-msg-msg{
+    
+}
+.wnd-msg-bottom{
+    padding: 15px 10px 0px 10px;
+}
+.wnd-msg-btn-gray{
+    background:#666;
+}
+.wnd-msg-btn-green{
+    background:#378404;
+}

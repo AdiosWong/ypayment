@@ -1,0 +1,88 @@
+
+#if($pageList.paginator)
+<div class="m-pages">
+	#if($pageList.paginator.items>0)
+		#set($recordNum=$pageList.paginator.getBeginIndex()+1)
+	#else
+		#set($recordNum=0)
+	#end
+	显示第<span class="num1">$recordNum -  $pageList.paginator.getEndIndex()</span> 条记录，共<span class="num1"> $pageList.paginator.getItems() </span>条记录
+	#if($pageList.paginator.getPage() == 1 || $pageList.paginator.getPages() == 0)
+		<!--  
+		<span class="home-page">首页</span>
+		<span class="class="home-page"">&lt;上一页</span>
+		-->
+	#else
+		<span class="home-page"><a href="javascript:toPage(jQuery('#pageNum'), 1, jQuery('form'));">首页</a></span>
+		<span class="prev"><a href="javascript:toPage(jQuery('#pageNum'), $pageList.paginator.getPreviousPage(), jQuery('form'));">&lt;上一页</a></span>
+	#end
+	
+	#set($sliders = $pageList.paginator.getSlider(7))
+	#if($sliders)
+		#foreach($slider in $sliders)
+			#if($pageList.paginator.isDisabledPage($slider))
+				<span style="color:black;">$slider</span>
+			#else
+        		<span class="num"><a href="javascript:toPage(jQuery('#pageNum'), $slider, jQuery('form'));">$slider</a></span>
+			#end
+		#end
+	#end
+	#if($pageList.paginator.getPage() != $pageList.paginator.getPages())
+		<span class="next"><a href="javascript:toPage(jQuery('#pageNum'), $pageList.paginator.getNextPage(), jQuery('form'));">下一页&gt;</a></span>
+		<span class="home-page"><a href="javascript:toPage(jQuery('#pageNum'), $pageList.paginator.getPages(), jQuery('form'));">末页</a></span>
+	#else
+		<!-- 
+		<span class="nolink">下一页</span>
+		<span class="nolink">末页</span>
+		-->
+	#end
+	<span><input type="text" class="ipt" value="" id="_page_input_num" #if($pageList.paginator.getPages() == 0)disabled#end/></span>
+	<span><input type="submit" value="跳转" class="sure" onclick="toPage(jQuery('#pageNum'), document.getElementById('_page_input_num').value, jQuery('form'))" #if($pageList.paginator.getPages() == 0)disabled#end/></span>
+</div>
+<input name="pageNum" id="pageNum" type="hidden" value="1" />
+<script>
+	function toPage(num_obj, num_val, form_obj){
+		if(num_val==""){
+			return;
+		}else{
+			var reg = new RegExp("^[0-9]*$");
+			if(!reg.test(num_val)){
+		        return;
+		    }
+		}
+		if($pageList.paginator.getPages() < num_val)
+		{
+		   return;
+		}
+		if (form_obj.length > 0){
+			num_obj.val(num_val);
+			form_obj.submit();
+		}
+	}
+ window.onload=function(){   
+ 	var maintable=document.getElementById("mainTable");
+
+	if(maintable)
+	{
+		
+    	var mainWidth=maintable.offsetWidth;
+    	var mainHeight=window.screen.height-250-65-maintable.offsetHeight;
+		var listtable_div=document.getElementById("listtable_div");
+		if(listtable_div)
+		{
+    		 listtable_div.style.height=mainHeight+"px";
+			 listtable_div.style.width=mainWidth+"px";
+			 if(listtable_div.scrollWidth>listtable_div.clientWidth)
+			 {
+			   listtable_div.style.width=(mainWidth-16)+"px";
+			 }
+			 else
+			 {
+			 	listtable_div.style.width=mainWidth+"px";
+			 }	
+		}
+	}
+ }   
+
+</script>
+#end

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width,user-scalable=no" name="viewport">
+<title>充值记录</title>
+<link type="text/css" href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="top">
+		<a class="back fn-blue" href="/recharge/index.html">返回</a>#*<a class="close fn-blue"
+			href="#">关闭</a>*#充值记录
+	</div>
+	<div class="item">
+		<div class="record-list fn-clear">
+			<ul>
+			</ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/js/lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/js/lib/sea.js"></script>
+	<script type="text/javascript"> 
+		seajs.use($_GLOBAL.mode + 'front/moblie/rechargeRecord');
+	</script>
+</body>
+</html>

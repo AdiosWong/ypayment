@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,user-scalable=no" name="viewport">
+	<title>手机充值</title>
+	<link type="text/css" href="/css/style.css" rel="stylesheet" />
+</head>
+<body style="min-height:100%;">
+	<div class="top"><a class="back fn-blue" href="#">返回</a>#*<a class="close fn-blue" href="#">关闭</a>*#充值</div>
+	<div class="item mt20" style="min-height:46rem;">
+	<form id="rechargeForm"  method="post" action="/recharge/toPaymentOrder.html">
+		#csrfInputHidden()
+	  	<div class="account-information">
+	    	<input id="phoneNumber" name="phoneNumber" type="text" class="phone-number" maxlength="11" placeholder="请输入手机号"/>
+	        <a id="clearPhoneNo" href="javascript:;"></a>
+	        <p id="mobileNo" style="display: none;" class="error fn-red">请输入正确的手机号</p>
+	    </div>
+	    <div class="recharge-list fn-clear">
+	    	<ul>
+	    	#if($!favourable.code == "TRUE")
+	    	    #foreach ($!chargeItem in $!{chargeItems})
+			    	<li><a href="javascript:doSubmit($!chargeItem.paymentAmount, $!chargeItem.payAmount)">
+			        	<dl>$!chargeItem.paymentAmount元</dl>
+			          	<dt>优惠价: $!chargeItem.payAmount元</dt>
+			        </a></li>
+			    #end
+			#else
+		      	<li><a href="javascript:doSubmit(10)">
+		        	<dl class="mt10">10元</dl>
+		        </a></li>
+		      	<li><a href="javascript:doSubmit(20)">
+		        	<dl class="mt10">20元</dl>
+		        </a></li>
+		      	<li><a href="javascript:doSubmit(30)">
+		        	<dl class="mt10">30元</dl>
+		        </a></li>
+		      	<li><a href="javascript:doSubmit(50)">
+		        	<dl class="mt10">50元</dl>
+		        </a></li>
+		      	<li><a href="javascript:doSubmit(100)">
+		        	<dl class="mt10">100元</dl>
+		        </a></li>
+	    	#end
+	      </ul>
+	      <input id="paymentAmount" name="paymentAmount" type="hidden" />
+	      <input id="payAmount" name="payAmount" type="hidden" />
+	    </div>
+	</form>
+    <a class="bottom-text" style="text-align:center;" href="/recharge/toRechargeRecord.html">查看充值记录</a>
+  </div>
+<script type="text/javascript" src="/js/lib/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/lib/sea.js"></script>
+<script type="text/javascript">
+	seajs.use($_GLOBAL.mode + 'front/moblie/rechargeIndex');
+	function doSubmit(amount, pay) {
+		if (amount == 0 || amount == null) {
+			return;
+		}
+		$('#paymentAmount').val(amount);
+		if(pay != null){
+			$('#payAmount').val(pay);
+		}
+		$('#rechargeForm').submit();
+	}
+</script>
+</body>
+</html>

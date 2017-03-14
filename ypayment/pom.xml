@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>yiji-boot-starter-parent</artifactId>
+        <groupId>com.yiji.boot</groupId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.yiji.ypayment</groupId>
+    <artifactId>ypayment-parent</artifactId>
+    <version>1.0.0-20160601</version>
+    <packaging>pom</packaging>
+
+    <name>ypayment</name>
+    <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>ypayment-biz</module>
+        <module>ypayment-integration</module>
+        <module>ypayment-dal</module>
+        <module>ypayment-facade</module>
+        <module>ypayment-assemble</module>
+        <module>ypayment-web</module>
+        <module>ypayment-test</module>
+        <module>ypayment-common</module>
+    </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Internal Release Repository</name>
+            <!-- <url>http://192.168.45.199:8081/nexus/content/repositories/releases/</url> -->
+            <url>http://192.168.45.35:8081/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <accountant.facade.version>4.0.0-20160115</accountant.facade.version>
+        <apache.commons.net.version>2.0.0</apache.commons.net.version>
+        <authenticate.facade.version>1.3.3.20160417</authenticate.facade.version>
+        <charge.facade.version>3.3.1.20160417</charge.facade.version>
+        <customer.facade.version>3.3.3.20160627</customer.facade.version>
+        <merchantcore.facade.version>2.3.1.20160620</merchantcore.facade.version>
+        <openapi.arch.version>1.2.2</openapi.arch.version>
+        <payengine.facade.version>2.0.0.20160118</payengine.facade.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- YJF -->
+        <resRoute.facade.version>2.0.1.20160527</resRoute.facade.version>
+        <superroute.facade.version>1.4.0.20160617</superroute.facade.version>
+        <trade.facade.version>2.5.1.20160620</trade.facade.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.yiji.authenticate</groupId>
+                <artifactId>authenticate-facade</artifactId>
+                <version>${authenticate.facade.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>customer-facade</artifactId>
+                        <groupId>com.yjf.core.customer</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>superroute-facade</artifactId>
+                        <groupId>com.yiji.superroute</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 全站脱敏 -->
+            <dependency>
+                <groupId>com.yiji.boot</groupId>
+                <artifactId>yiji-boot-starter-security</artifactId>
+                <version>1.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yiji.boot</groupId>
+                <artifactId>yiji-boot-starter-yedis</artifactId>
+                <version>1.2-SNAPSHOT</version>
+            </dependency>
+            <!-- 会员系统 -->
+            <dependency>
+                <groupId>com.yiji.core.customer</groupId>
+                <artifactId>customer-facade</artifactId>
+                <version>${customer.facade.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>accountant-facade</artifactId>
+                        <groupId>com.yjf.core.accountant</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--openApi-->
+            <dependency>
+                <groupId>com.yiji.openapi</groupId>
+                <artifactId>openapi-arch-facade</artifactId>
+                <version>${openapi.arch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yiji.superroute</groupId>
+                <artifactId>superroute-facade</artifactId>
+                <version>${superroute.facade.version}</version>
+            </dependency>
+            <!-- 账务系统 -->
+            <dependency>
+                <groupId>com.yjf.core.accountant</groupId>
+                <artifactId>accountant-facade</artifactId>
+                <version>${accountant.facade.version}</version>
+            </dependency>
+            <!--收费-->
+            <dependency>
+                <groupId>com.yjf.core.charge</groupId>
+                <artifactId>charge-facade</artifactId>
+                <version>${charge.facade.version}</version>
+            </dependency>
+            <!-- 商户系统 -->
+            <dependency>
+                <groupId>com.yjf.core.merchant</groupId>
+                <artifactId>merchantcore-facade</artifactId>
+                <version>${merchantcore.facade.version}</version>
+            </dependency>
+            <!-- 支付引擎 -->
+            <dependency>
+                <groupId>com.yjf.core.payengine</groupId>
+                <artifactId>payengine-facade</artifactId>
+                <version>${payengine.facade.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>superroute-facade</artifactId>
+                        <groupId>com.yiji.superroute</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>accountant-facade</artifactId>
+                        <groupId>com.yjf.core.accountant</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 交易系统 -->
+            <dependency>
+                <groupId>com.yjf.core.trade</groupId>
+                <artifactId>trade-facade</artifactId>
+                <version>${trade.facade.version}</version>
+            </dependency>
+            <!-- 资源路由 -->
+            <dependency>
+                <groupId>com.yjf.resRoute</groupId>
+                <artifactId>resRoute-facade-route</artifactId>
+                <version>${resRoute.facade.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.24</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>com.springsource.org.apache.commons.net</artifactId>
+                <version>${apache.commons.net.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jacoco</groupId>
+                                        <artifactId>jacoco-maven-plugin</artifactId>
+                                        <versionRange>[0.7.2.201409121644,)</versionRange>
+                                        <goals>
+                                            <goal>prepare-agent</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

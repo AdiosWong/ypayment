@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>配置管理</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">配置管理</h2>
+			</div>
+			<form action="/boss/ypayment/payment/platform/platform/saveList.html" method="post" class="m-form" name="platformForm" id="platformForm">
+			    #csrfInputHidden()
+				<input type="hidden" name="id" value="$!{platformType.id}" />
+				<div class="item-box fn-clear">
+					<div class="item">
+						<label class="lab">平台类型：</label> 
+						<input type="text" name="platformType" value="$!{platformType.platformType}" class="ipt w190" />
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+					<div class="item">
+						<label class="lab">平台名称：</label> 
+						<input type="text" name="platformName" value="$!{platformType.platformName}" class="ipt w190" />
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+					<div class="item">
+					<label class="lab">状态：</label> 
+						<div class="jqtransform jqtransform-select3 fn-left">
+							<select name="status" class="ipt w190" >
+								#foreach($!data in $!{paymentValidStatus}) 
+								<option value="$!{data}" 
+									#if($!{data}==$!{platformType.status})
+										selected="selected"
+									#end >$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+				    <div class="item">
+					<label class="lab">是否短信通知：</label>
+					<div class="jqtransform jqtransform-select3 fn-left">
+						<select 
+						    name="sms" 
+						    class="ipt w130">
+								<option value="YES" #if($!{platformType.sms})
+									selected="selected"
+								#end >是</option>
+								<option value="NO" #if(!$!{platformType.sms})
+									selected="selected"
+								#end>否</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+				    <div class="item">
+					<label class="lab">是否支持代扣：</label>
+					<div class="jqtransform jqtransform-select3 fn-left">
+						<select 
+						    name="deposit" 
+						    class="ipt w130">
+								<option value="YES" #if($!{platformType.deposit})
+									selected="selected"
+								#end >是</option>
+								<option value="NO" #if(!$!{platformType.deposit})
+									selected="selected"
+								#end>否</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+				    <div class="item">
+					<label class="lab">缴费类型：</label>
+					 #foreach($!paymentType in $paymentTypeEnum)
+					 	#if($!{paymentType.code} != '000060')
+                           #if($platformType.getPaymentTypeList() != '' || $platformType.getPaymentTypeList().size() > 0)
+                            <input type="checkbox" class="checkbox" name="paymentTypeList" value="$!{paymentType.code}" 
+                            	#foreach($!typeData in $platformType.getPaymentTypeList()) #if($!{paymentType.code} == $!{typeData}) checked #end #end />
+                           #else
+                               <input type="checkbox" class="checkbox" name="paymentTypeList" value="$!{paymentType.code}" />
+                           #end
+                           $!{paymentType.message}
+                        #end
+                     #end
+                    </div>
+				</div>
+				<div class="item-box fn-clear">
+				    <div class="item">
+					<label class="lab">是否异步通知：</label>
+					<div class="jqtransform jqtransform-select3 fn-left">
+						<select 
+						    name="notifyOpenApi" 
+						    class="ipt w130">
+								<option value="YES" #if($!{platformType.notifyOpenApi})
+									selected="selected"
+								#end >是</option>
+								<option value="NO" #if(!$!{platformType.notifyOpenApi})
+									selected="selected"
+								#end>否</option>
+						</select>
+					</div>
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+					<div class="item">
+					<label class="lab">接入类型：</label> 
+						<div class="jqtransform jqtransform-select3 fn-left">
+							<select name=accessType class="ipt w190" >
+								#foreach($!data in $!{accessTypeEnum}) 
+								<option value="$!{data}" 
+									#if($!{data}==$!{platformType.accessType})
+										selected="selected"
+									#end >$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="item-box fn-clear">
+					<div class="item">
+						<label class="lab">商户ID：</label> 
+						<input type="text" name="partnerId" value="$!{platformType.partnerId}" class="ipt w190" />
+					</div>
+				</div>
+				<div class="bottom-c">
+					<a href="javascript:;" id="platformSubmit" class="u-btn u-btn-green">提交</a>
+					<a href=/boss/ypayment/payment/platform/platform/list.html class="u-btn u-btn-red">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'/boss/platform');
+</script>
+</html>

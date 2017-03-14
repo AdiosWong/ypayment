@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费类型</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-bd fn-clear">
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">生活缴费</h2>
+			</div>
+			<div class="item-box fn-clear mt10">
+                <div class="item">
+					<a href="/test/payment/toPaymentBinding.html?paymentType=$!{paymentTypeEnum.code()}&userId=$!{userId}&addPaymentBinding=1" class="u-btn u-btn-green">新增绑卡</a>
+					<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+				</div>
+            </div>
+            <form action="/test/payment/doPayment.html" method="post">
+        	#csrfInputHidden()
+        	<input type="hidden" name="amount" id="amount" class="ipt w130" />	
+			<div class="m-query">
+				<div class="item-box fn-clear mt10">
+	        			<div class="item">
+	        				<label class="lab">缴费会员：</label> 
+							<label class="txt">$!{userId}</label> 
+							<input type="hidden" name="userId" value="$!{userId}" class="ipt w130" />
+	        			</div>
+						<div class="item ml20">
+	        				<label class="lab">缴费类型：</label> 
+							<label class="txt">$!{paymentTypeEnum.message()}</label> 
+							<input type="hidden" name="paymentType" value="$!{paymentTypeEnum}" class="ipt w130" />			
+	        			</div>
+                </div>
+    			<div class="item-box fn-clear mt10">
+                    <div class="item">
+						<label class="lab">绑卡信息</label> 
+						<div class="jqtransform jqtransform-select3 fn-left">
+        					<select name="contractNo" id="contractNo" class="ipt w130">
+        						<option value="">请选择</option>
+        						#foreach($!bindInfo in $!{bindingInfos}) 
+        							<option value="$!{bindInfo.contractNo}">卡号:$!{bindInfo.userCode}|资源编码:$!{bindInfo.resourceCode}|资源名称:$!{bindInfo.resourceName}</option>
+        						#end
+        					</select>
+                        </div>
+    				</div>
+                </div>
+				   <div class="payable">
+            
+            	    </div>
+            	    <div class="totalPayables">
+            
+            	    </div>
+            	    <div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<input type="submit" class="u-btn u-btn-green" style="height:32px;" value="缴费">
+        				<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+                    </div>
+                </div>
+            </div>
+            </form>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'/test/paymentCosts');
+</script>
+</body>
+</html>

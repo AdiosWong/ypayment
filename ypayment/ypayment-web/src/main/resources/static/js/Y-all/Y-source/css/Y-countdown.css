@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.countdown-countdown{
+    vertical-align:middle; 
+	cursor:pointer; 
+	text-align:left; 
+	display:inline-block; 
+	height:31px; 
+	background:url(../image/com-btn.jpg) no-repeat left -72px; 
+	padding:0 0 0 20px; 
+}
+.countdown-countdown span{
+    text-align:right; 
+	height:31px; 
+	display:inline-block; 
+	line-height:31px; 
+	background:url(../image/com-btn.jpg) no-repeat right -72px; 
+	padding:0 20px 0 0; 
+	color:#2386d8;
+}

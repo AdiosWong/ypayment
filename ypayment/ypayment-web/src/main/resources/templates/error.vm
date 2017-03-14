@@ -1,0 +1,48 @@
+<style>
+    .mf-box {
+        height: auto !important;
+        height: 220px;
+        min-height: 220px;
+        background: #fff;
+    }
+    .mtip-box {
+        text-align: center;
+        padding: 50px;
+    }
+    .mtip-box .mtip-ico {
+        display: inline-block;
+        width: 62px;
+        height: 62px;
+        background: url(/images/common/mtip-ico.gif) no-repeat 0 0;
+    }
+    .mtip-box .fail-ico {
+        background-position: 0 -64px;
+    }
+    .mtip-box h3 {
+        color: #333;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0 5px;
+    }
+    .mtip-box p {
+        font-size: 14px;
+    }
+    p {
+        word-wrap: break-word;
+    }
+</style>
+<div class="container" style="padding:30px 0 50px;">
+    <div class="mf-box">
+        <div class="mtip-box">
+            <i class="mtip-ico fail-ico"></i>
+            <h3 class="tipbox-title">操作出现异常，请重试或联系客户处理！</h3>
+			#if($timeOutMessage)
+                <p>原因：$!timeOutMessage</p>
+            #elseif($errorMessage)
+           		<p>原因：$!errorMessage</p>
+            #else
+            	<p>操作出现系统异常</p>
+			#end
+        </div>
+    </div>
+</div>

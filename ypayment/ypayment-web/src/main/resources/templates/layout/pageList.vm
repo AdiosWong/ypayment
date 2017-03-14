@@ -1,0 +1,64 @@
+
+#if($pageList)
+<div class="m-pages">
+	#if($pageList.totalCount>0)
+		#if($pageList.currentPage>1)
+			<span class="next"><a href="javascript:toPage(1,0);">首页</a></span>
+			<span class="prev"><a href="javascript:toPage($pageList.currentPage,-1);">上一页</a></span>
+		#end
+		
+		#set($currentNum=$pageList.currentPage)
+		#set($totalNum=$pageList.totalPage)
+		#set($prevNum1=$currentNum - 2)
+		#set($prevNum2=$currentNum - 1)
+		#set($nextNum1=$currentNum + 1)
+		#set($nextNum2=$currentNum + 2)
+		
+		#if($prevNum1>0)
+			<span class="num"><a href="javascript:toPage($prevNum1,0);">$prevNum1</a></span>
+		#end
+		#if($prevNum2>0)
+			<span class="num"><a href="javascript:toPage($prevNum2,0);">$prevNum2</a></span>
+		#end
+		
+		<span class="num cur">$currentNum</span>
+		
+		#set($next1=$totalNum - $nextNum1)
+		#if($next1>=0)
+			<span class="num"><a href="javascript:toPage($nextNum1,0);">$nextNum1</a></span>
+		#end
+		
+		#set($next2=$totalNum - $nextNum2)
+		#if($next2>=0)
+			<span class="num"><a href="javascript:toPage($nextNum2,0);">$nextNum2</a></span>
+		#end
+		
+		##下页	
+		#if($pageList.totalPage>$pageList.currentPage&&$pageList.totalPage>1)
+			<span class="next"><a href="javascript:toPage($pageList.currentPage,1);">下一页<a></a></span>
+		#end
+		
+		
+		##显示末页	
+		#if($pageList.totalPage!=$pageList.currentPage)
+			<span class="next"><a href="javascript:toPage($pageList.totalPage,0);">末页<a></a></span>
+		#end	
+	
+	&nbsp;&nbsp;当前页码:$pageList.currentPage
+	&nbsp;&nbsp;总页数:$pageList.totalPage 
+	&nbsp;&nbsp;总记录数:$pageList.totalCount&nbsp;&nbsp;
+	#end
+</div>
+
+<script>
+	function toPage(pageNum,num){
+		var formObj=jQuery('form');
+		var pageNum=pageNum+num;
+		formObj.append("<input type=\"hidden\" name=\"currentPage\" value=\""+pageNum+"\"/>");
+		if(pageNum>$pageList.totalPage){
+			return;
+		}
+		formObj.submit();
+	}
+</script>
+#end

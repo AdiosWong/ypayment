@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>业务平台</title>
+</head>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">业务平台信息管理</h2>
+			</div>
+			<!--搜索查询模块-->
+			<form action="/boss/ypayment/payment/platform/platform/list.html"
+				method="post">
+				#csrfInputHidden()
+				<ul class="m-query">
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">平台类型 ：</label> <input type="text"
+								name="search_EQ_platformType" value="$!{param.EQ_platformType}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">平台名称 ：</label> <input type="text"
+								name="search_EQ_platformName" value="$!{param.EQ_platformName}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">商户ID：</label> <input type="text"
+								name="search_EQ_partnerId" value="$!{param.EQ_partnerId}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">状态：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select 
+							    name="search_EQ_status" 
+							    class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{paymentValidStatus}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_status}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item time-item">
+							<label class="lab">创建时间：</label>
+							<div class="f-time">
+								<input type="date" name="search_GTE_rawAddTime" class="ipt"
+									value="$!{param.GTE_rawAddTime}"/>
+							</div>
+							<span class="to">-</span>
+							<div class="f-time">
+								<input type="date" name="search_LTE_rawAddTime" class="ipt"
+									value="$!{param.LTE_rawAddTime}"/>
+							</div>
+						</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="搜索">
+						<a href="/boss/ypayment/payment/platform/platform/list.html" class="u-btn u-btn-green">刷新</a>
+					</li>
+				</ul>
+				<div class="m-operBtn">
+					<a href="/boss/ypayment/payment/platform/platform/create.html"
+						class="u-btn2 u-btn2-green">新增</a>
+				</div>
+				<table class="m-table" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tr>
+						<th>&nbsp;</th>
+						<th>平台类型</th>
+						<th>平台名称</th>
+						<th>缴费类型</th>
+						<th>数字签名key</th>
+						<th>商户ID</th>
+						<th>状态</th>
+						<th>是否短信通知</th>
+						<th>是否支持代扣</th>
+						<th>是否异步通知</th>
+						<th>接入方式</th>
+						<th>创建时间</th>
+						<th>操 作</th>
+					</tr>
+					#foreach($!data in $!{pageList.pageResults})
+					<tr>
+						<td></td>
+						<td>$!{data.platformType}</td>
+						<td>$!{data.platformName}</td>
+						<td>
+							#foreach($!typeData in $data.getPaymentTypeList()) 
+								$paymentTypeMap.get($!{typeData})|
+							#end
+						</td>
+						<td>$!{data.signatureKey}</td>
+						<td>$!{data.partnerId}</td>
+						<td>$!{data.status.message}</td>
+						<td>#if($!{data.sms})是#else否#end</td>
+						<td>#if($!{data.deposit})是#else否#end</td>
+						<td>#if($!{data.notifyOpenApi})是#else否#end</td>
+						<td>$!{data.accessType.message}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawAddTime)}</td>
+						<td><a href="/boss/ypayment/payment/platform/platform/edit.html?id=$!{data.id}">修改</a> | 
+						    <a href="/boss/ypayment/payment/platform/platform/show.html?id=$!{data.id}">详情</a></td>
+					</tr>
+					#end
+				</table>
+				#parse("layout/pageList.vm")
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

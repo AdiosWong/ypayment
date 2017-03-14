@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>代扣管理</title>
+</head>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">代扣信息管理</h2>
+			</div>
+			<!--搜索查询模块-->
+			<form action="/boss/ypayment/payment/deduct/deductDeposit/list.html"
+				method="post">
+				#csrfInputHidden()
+				<ul class="m-query">
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">易极付会员ID：</label> <input type="text"
+								name="search_EQ_userId" value="$!{param.EQ_userId}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">代扣订单号：</label> <input type="text"
+								name="search_EQ_depositBizNo" value="$!{param.EQ_depositBizNo}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">代扣支付流水号：</label> <input type="text"
+								name="search_EQ_depositNo" value="$!{param.EQ_depositNo}"
+								class="ipt w130" />
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">银行卡号：</label> <input type="text"
+								name="search_LIKE_cardNo" value="$!{param.LIKE_cardNo}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">银行名称：</label> <input type="text"
+								name="search_LIKE_bankName" value="$!{param.LIKE_bankName}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">代扣状态 ：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select
+								name="search_EQ_depositStatus" 
+								class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{depositStatusEnum}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_depositStatus}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item time-item">
+							<label class="lab">创建时间：</label>
+							<div class="f-time">
+								<input type="date" name="search_GTE_rawAddTime" class="ipt"
+									value="$!{param.GTE_rawAddTime}"/>
+							</div>
+							<span class="to">-</span>
+							<div class="f-time">
+								<input type="date" name="search_LTE_rawAddTime" class="ipt"
+									value="$!{param.LTE_rawAddTime}"/>
+							</div>
+						</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="搜索">
+						<a href="/boss/ypayment/payment/deduct/deductDeposit/list.html" class="u-btn u-btn-green">刷新</a>
+					</li>
+				</ul>
+
+				<table class="m-table" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tr>
+						<th>&nbsp;</th>
+						<th>易极付会员ID</th>
+						<th>代扣订单号</th>
+						<th>代扣支付流水号</th>
+						<th>代扣金额</th>
+						<th>实际入账金额</th>
+						<th>银行卡号</th>
+						<th>银行名称</th>
+						<th>代扣状态 </th>
+						<th>创建时间</th>
+						<th>操 作</th>
+					</tr>
+					#foreach($!data in $!{pageList.pageResults})
+					<tr>
+						<td></td>
+						<td>$!{data.userId}</td>
+						<td>$!{data.depositBizNo}</td>
+						<td>$!{data.depositNo}</td>
+						<td>$!{data.depositAmount}</td>
+						<td>$!{data.actAmount}</td>
+						<td>$!{data.cardNo}</td>
+						<td>$!{data.bankName}</td>
+						<td>$!{data.depositStatus.message}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawAddTime)}</td>
+						<td><a href="/boss/ypayment/payment/deduct/deductDeposit/show.html?id=$!{data.id}">详情</a></td>
+					</tr>
+					#end
+				</table>
+				#parse("layout/pageList.vm")
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

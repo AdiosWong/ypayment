@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>配置管理</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">配置管理</h2>
+			</div>
+			<!--搜索查询模块-->
+			<form action="/boss/ypayment/management/configment/config/list.html"
+				method="post">
+				#csrfInputHidden()
+				<ul class="m-query">
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">键：</label> 
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select name="search_EQ_configKey" class="ipt w190" >
+								<option value="">请选择</option>
+								#foreach($!data in $!{allConfigKeys}) 
+								<option value="$!{data}" 
+									#if($!{param.EQ_configKey}==$!{data})
+									selected="selected"
+									#end >$!{data.message}</option>
+								#end
+							</select>
+						</div>
+						</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="搜索">
+						<a href="/boss/ypayment/management/configment/config/list.html" class="u-btn u-btn-green">刷新</a>
+					</li>
+				</ul>
+				<div class="m-operBtn">
+					<a href="/boss/ypayment/management/configment/config/create.html"
+						class="u-btn2 u-btn2-green">新增</a>
+				</div>
+				<table class="m-table" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tr>
+						<th>&nbsp;</th>
+						<th>键</th>
+						<th>值</th>
+						<th>备注</th>
+						<th>创建时间</th>
+						<th>修改时间</th>
+						<th>操作</th>
+					</tr>
+					#foreach($!data in $!{pageList.pageResults})
+					<tr>
+						<td></td>
+						<td>$!{data.configKey.message}</td>
+						<td>$!{data.configValue}</td>
+						<td>$!{data.memo}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawAddTime)}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawUpdateTime)}</td>
+						<td><a href="/boss/ypayment/management/configment/config/edit.html?id=$!{data.id}">修改</a> | 
+							<a href="/boss/ypayment/management/configment/config/removeList.html?id=$!{data.id}">删除</a></td>
+					</tr>
+					#end
+				</table>
+				#parse("layout/pageList.vm")
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+@charset "utf-8";
+@import url("base.css");
+
+html{font-size:62.5%;/*10 ÷ 16 × 100% = 62.5%*/ background:#f4f4f4;}
+body{font-size:1.2rem;/*1.2 × 10px = 12px */}
+a{color:#333; outline:none;}
+a:hover{text-decoration:none;}
+/*margin*/
+.mb5{ margin-bottom:0.5rem;}
+.mb10{ margin-bottom:1rem;}
+.mb15{ margin-bottom:1.5rem;}
+.mb20{ margin-bottom:2rem;}
+.mb30{ margin-bottom:3rem;}
+.mb50{ margin-bottom:5rem;}
+.mb70{ margin-bottom:7rem;}
+.mt5{ margin-top:0.5rem;}
+.mt10{ margin-top:1rem;}
+.mt15{ margin-top:1.5rem;}
+.mt20{ margin-top:2rem;}
+.mt30{ margin-top:3rem;}
+.mt60{ margin-top:6rem;}
+.ml10{ margin-left:1rem;}
+/*字体颜色*/
+.fn-black{ color:#333;}
+.fn-gray{ color:#999;}
+.fn-green{ color:#379b14;}
+.fn-orange{ color:#ff8809;}
+.fn-blue{ color:#00b7e6;}
+.fn-blue2{ color:#4b9bee;}
+.fn-red{ color:#f00;}
+/**/
+.bt-line{ border-bottom:1px #ddd solid;}
+.plr10{ padding:0 1rem;}
+.padding15{ padding:0 1.5rem;}
+.bg-gary{ background:#bbb;}
+.bg-blue{ background:#00b7e6;}
+.fn-hide{ display:none;}
+/*按钮*/
+.sub-btn{ width:100%; height:4rem; color:#fff; font-size:1.6rem; border:0;}
+/*短信验证*/
+.top{ height:4.4rem; line-height:4.4rem; text-align:center; font-size:1.7rem; border-bottom:1px #c8c8c8 solid; position:relative; background:#fafafa;}
+.top-grren{ background:#54a721; border-bottom:0;}
+.top .back{ display:inline-block; padding-left:1.4rem; background:url(../images/back-ico.png) left no-repeat; position:absolute; left:1.5rem; background-size:1.1rem 1.9rem}
+.top .close{ position:absolute; left:7rem;}
+
+.item{ background:#fff; overflow:hidden;}
+.item .account-information{ padding:1.5rem 1.5rem; border-top:1px #ddd solid; border-bottom:1px #ddd solid; line-height:4rem; position:relative;}
+.item .phone-number{ width:90%; border:none; font-size:2.4rem;}
+.item .phone-number:focus{ color:#999;}
+.item .account-information .clear-ico{ position:absolute; display:block; width:1.7rem; height:1.7rem; background:url(../images/clear-ico.png) no-repeat; right:1.5rem; top:2.5rem; background-size:1.7rem 1.7rem;}
+.item .account-information .error{ line-height:2.2rem; font-size:1.2rem; position:absolute; bottom:.2rem;}
+.item .recharge-list{ padding:1.5rem 1.5rem; margin-right:-5%;}
+.item .recharge-list ul li{ float:left; width:29%; height:6.4rem; border:1px solid #ddd; margin:0 3% 1.1rem 0;}
+.item .recharge-list ul li.current{ background:#00b7e6;}
+.item .recharge-list ul li.current a{ color:#fff;}
+.item .recharge-list ul li a{ display:block; width:100%; height:4.4rem; padding:1rem 0; color:#00b7e6; text-align:center;}
+.item .recharge-list ul li a dl{ line-height:2.5rem; font-size:2rem;}
+.item .recharge-list ul li a dt{ line-height:1.9rem; font-size:1.2rem;}
+.item .recharge-list ul li a:hover{ background:#00b7e6; color:#fff;}
+.item .bottom-text{ color:#00b7e6; font-size:1.6rem; display:block; margin-top:2rem;}
+
+.item .account-information .result dl{ display:inline-block;}
+.item .account-information .result dd{ display:inline-block; line-height:2.8rem; margin-left:1rem;}
+.item .account-information .result dl i{ display:block; width:2.8rem; height:2.8rem;}
+.item .account-information .result dl i.errpt-ico{ background:url(../images/error-ico.png) no-repeat; background-size:2.8rem 2.8rem;}
+.item .account-information .result dl i.success-ico{ background:url(../images/success-ico.png) no-repeat; background-size:2.8rem 2.8rem;}
+.item .account-information .result dl i.fail-ico{ background:url(../images/fail-ico.png) no-repeat; background-size:2.8rem 2.8rem;}
+.item .account-information .result dd h5{ font-size:1.6rem;}
+.item .account-information .result dd p{ font-size:1.4rem;}
+
+.item .pay-information .bank-list{ padding:0 1.5rem; height:18rem; overflow:auto; background:#f4f4f4;}
+.item .pay-information .bank-list ul li{ padding-left:4rem; padding-right:0rem; position:relative; font-size:1.4rem; cursor:pointer;}
+.item .pay-information .bank-list ul li a{ display:inline-block;}
+.item .pay-information .bank-list ul li b{ display:block; width:2.2rem; height:2.2rem; position:absolute; left:.5rem; top:1.5rem;}
+.item .pay-information .bank-list ul li b.bank-ico1{ background:url(../images/bank-ico1.png) no-repeat; background-size:2.2rem 2.2rem;}
+.item .pay-information .bank-list ul li b.bank-ico2{ background:url(../images/bank-ico2.png) no-repeat; background-size:2.2rem 2.2rem;}
+.item .pay-information .bank-list ul li b.bank-ico3{ background:url(../images/bank-ico3.png) no-repeat; background-size:2.2rem 2.2rem;}
+.item .pay-information .bank-list ul li i.current-ico{ display:block; width:1.9rem; height:1.4rem; background:url(../images/current-ico.png) no-repeat; background-size:1.9rem 1.4rem; position:absolute; right:0rem; top:2rem;}
+
+.item .password-information{ padding:0 1.5rem; line-height:5rem; border-top:1px #ddd solid; border-bottom:1px #ddd solid; position:relative;}
+.item .password-information .clear-ico{ position:absolute; display:block; width:1.7rem; height:1.7rem; background:url(../images/clear-ico.png) no-repeat; right:1.5rem; top:1.6rem; background-size:1.7rem 1.7rem;}
+.item .pass-text{ line-height:2rem; font-size:1.6rem; width:90%; border:none;}
+.error-word{ line-height:2.2rem;}
+.item .pay-information{ border-top:1px solid #ddd;}
+.item .pay-information ul li{ padding:1rem 1.5rem; font-size:1.4rem; line-height:3rem; border-bottom:1px solid #ddd; position:relative;}
+.item .pay-information ul li dl{ display:block; width:70%; text-align:right; float:right; padding-right:.5rem; font-size:1.4rem;}
+.item .pay-information ul li dl em{ font-size:2rem;}
+.item .pay-information ul li i{ float:right;}
+.item .pay-information ul li i.more-ico{ display:block; width:1.5rem; height:3rem; background:url(../images/more-ico.png) center no-repeat; background-size:1.5rem 1.1rem;}
+.item .pay-information ul li i.more-ico2{ display:block; width:1.5rem; height:3rem; background:url(../images/more-ico2.png) center no-repeat; background-size:1.5rem 1.1rem;}
+.item .record-list{}
+.item .record-list ul li{ padding:1rem 1.5rem; line-height:2.5rem; font-size:1.4rem; border-bottom:1px #ddd solid;}
+.item .record-list ul li span{ float:right; font-size:1.4rem;}
+.item .record-list ul li dl{ font-size:1.6rem;}
+
+.bottom{ width:100%; height:4.4rem; line-height:4.4rem; text-align:center; font-size:1.4rem; border-bottom:1px #c8c8c8 solid; position:fixed; bottom:0; background:#fafafa;}
+.bottom .last-page{ float:left; display:inline-block; width:2.8rem; height:4.4rem; background:url(../images/last-ico.png) right no-repeat; background-size:1.3rem 1.7rem}
+.bottom .next-page{ float:right; display:inline-block; width:2.8rem; height:4.4rem; background:url(../images/next-ico.png) left no-repeat; background-size:1.3rem 1.7rem}
+
+/*支付密码错误*/
+.psw-error{ line-height:2.2rem; color:#f00;}

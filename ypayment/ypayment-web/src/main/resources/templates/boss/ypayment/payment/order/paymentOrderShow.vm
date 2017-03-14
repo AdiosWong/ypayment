@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费订单详情</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">缴费订单管理-详情</h2>
+			</div>
+			<div class="m-state">
+				##
+				<h4 class="tt">缴费订单：</h4>
+			</div>
+			<table class="m-table2 m-table-c" cellpadding="0" cellspacing="0"
+				width="80%">
+				<tr>
+					<td>用户id：$!{paymentOrder.userId}</td>
+					<td>用户名： $!{paymentOrder.userName}</td>
+				</tr>					
+				<tr>
+					<td>外部订单号：$!{paymentOrder.outBizNo}</td>
+					<td>缴费订单号：$!{paymentOrder.paymentOrderNo}</td>
+				</tr>
+				<tr>
+				    <td>缴费状态：$!{paymentOrder.paymentExtStatus.message}</td>
+					<td>交易转账状态：$!{paymentOrder.tradeStatus.message}</td>
+				</tr>
+				<tr>
+					<td>资源名称： $!{paymentOrder.resourceName}</td>
+					<td>资源编码： $!{paymentOrder.resourceCode}</td>
+				</tr>
+				<tr>
+					<td>用户卡号：$!{paymentOrder.userCode}</td>
+					<td>缴费类型： $!{paymentOrder.paymentType.message}</td>
+				</tr>
+				<tr>
+					<td>支付方式：$!{paymentOrder.payWay}</td>
+					<td>是否优惠： $!{paymentOrder.favourable.message}</td>
+				</tr>
+				<tr>
+					<td>商户id：$!{paymentOrder.partnerId}</td>
+					<td>是否需要异步通知：#if($!{paymentOrder.notifyOpenApi})是#else否#end</td>
+				</tr>
+				<tr>
+					<td>欠费金额： $!{paymentOrder.payable}</td>
+					<td>缴费金额： $!{paymentOrder.paymentAmount}</td>
+				</tr>
+				<tr>
+					<td>渠道编码： $!{paymentOrder.channelCode}</td>
+					<td>年月份： $!{paymentOrder.month}</td>
+				</tr>
+				<tr>
+					<td>收款账户： $!{paymentOrder.payAccount}</td>
+					<td>缴费来源： $!{paymentOrder.payFrom}</td>
+				</tr>
+				<tr>
+				    <td>开始时间： $!{paymentOrder.startTime}</td>
+					<td>结束时间： $!{paymentOrder.endTime}</td>
+					
+				</tr>
+				<tr>
+				    <td>是否垃圾费： #if($!{paymentOrder.rubbish})是#else否#end</td>
+					<td>备注： $!{paymentOrder.memo}</td>
+				</tr>
+				<tr>
+					<td>创建时间： $!{dateUtil.simpleFormat($paymentOrder.rawAddTime)}</td>
+					<td>修改时间：$!{dateUtil.simpleFormat($paymentOrder.rawUpdateTime)}</td>
+				</tr>
+			</table>
+
+			<div class="bottom-c">
+				<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width,user-scalable=no" name="viewport">
+<title>付款详情</title>
+<link type="text/css" href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="top">
+		<a class="back fn-blue" href="/recharge/index.html">返回</a>
+		#*<a class="close fn-blue" href="#">关闭</a>*#付款详情
+	</div>
+	<form id="rechargePayForm" name="rechargePayForm" method="post" action="/recharge/sendRecharge.html">
+		#csrfInputHidden()
+		<div class="item mt20">
+			<div class="pay-information">
+				<ul>
+					<li>订单信息
+						<dl>充值$!{paymentAmount}元-$!{phoneNumber}</dl> 
+						<input id="paymentAmount" name="paymentAmount" type="hidden" value="$!{paymentAmount}" /> 
+						<input id="phoneNumber" name="phoneNumber" type="hidden" value="$!{phoneNumber}" />
+						<input id="availableAmount" name="availableAmount" type="hidden" value="$!{availableAmount.toString()}" />  
+						<input id="payAmount" name="payAmount" type="hidden" value="$!{payAmount}" /> 
+						<input id="payPact" name="payPact" type="hidden" /> 
+					</li>
+				    #set($packCard = '')
+				    #if($pactBankCards && $pactBankCards.size() > 0 )
+				     #set($packCard = $!{pactBankCards.get(0)})
+				    #end
+				    <li class="more">
+					#if($!{availableAmount.toStandardString()} == "0.00" && $packCard != '')
+						<a href="javascript:;"> 付款方式<i class="more-ico"></i>
+						    <dl class="payway">$packCard.bankName$packCard.cardType.message（$packCard.cardNo）</dl>
+					    </a>
+					    <input name="paymentType" value="deposit_$packCard.pactNo" type="hidden"/>
+				    #else
+					    <a href="javascript:;"> 付款方式<i class="more-ico"></i>
+						    <dl class="payway">易极付余额（￥$!{availableAmount.toStandardString()}元）</dl>
+					    </a>
+					    <input name="paymentType" value="balance_payment" type="hidden" />
+				    #end
+				    </li>
+					<div class="bank-list fn-hide">
+						<ul>
+							<li>
+							<b class="bank-ico1"></b>易极付余额（￥$!{availableAmount.toStandardString()}元）
+							#if($!{availableAmount.toStandardString()} != "0.00" || !$pactBankCards)
+								<i class="current-ico"></i>
+							#end
+							<input name="balance_payment" type="hidden" />
+							</li> 
+							#if($pactBankCards)
+								#set($i = 0)
+								#foreach($pactBankCard in $!{pactBankCards})
+									<li><b><image src="/images/bank/$!{pactBankCard.bankCode}.png" style="max-height:26.4px;max-width:26.4px;"></image></b>
+									#if($!{i} == 0 && $!{availableAmount.toStandardString()} == "0.00")
+										<i class="current-ico"></i>
+									#end
+									<input name="deposit_$!{pactBankCard.pactNo}" type="hidden"/>
+									$!pactBankCard.bankName$!pactBankCard.cardType.message（$!pactBankCard.cardNo）
+									</li>
+									#set($i = $i + 1)
+								#end
+							#end
+						</ul>
+					</div>
+					<li>需付金额
+						<dl>
+							<em>$!{payAmount}元</em>
+						</dl>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="item mt20">
+			<div class="password-information">
+				<input type="password" name=password class="pass-text" placeholder="请输入易极付支付密码" />
+				<a id="clearPsw" href="javascript:;"></a>
+				<input id="token" name="token" type="hidden" value="$!{token}" />
+			</div>
+		</div>
+		<div class="padding15 payMsg">
+		</div>
+		<div class="padding15">
+			<button class="sub-btn mt30 bg-gary" type="button">确认付款</button>
+		</div>
+	</form>
+	<script type="text/javascript" src="/js/lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/js/lib/sea.js"></script>
+	<script type="text/javascript">
+	  seajs.use($_GLOBAL.mode + 'front/moblie/rechargePayment');
+	</script>
+</body>
+</html>

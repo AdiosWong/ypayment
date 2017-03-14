@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width,user-scalable=no" name="viewport">
+<title>受理结果-处理中</title>
+<link type="text/css" href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="top">
+		<a class="back fn-blue" href="/recharge/index.html">返回</a>#*<a
+			class="close fn-blue" href="#">关闭</a>*#受理结果
+	</div>
+	<div class="item mt20">
+		<div class="account-information">
+			<div class="result fn-clear">
+				<dl class="fn-left">
+					<i class="fail-ico"></i>
+				</dl>
+				<dd class="fn-left">
+					<h5>受理中</h5>
+					<p class="fn-gray">充值受理中，请稍后查收……</p>
+				</dd>
+			</div>
+		</div>
+	</div>
+	<div class="padding15">
+		<button class="sub-btn bg-blue mt30" type="button" onclick=homePage()>确定</button>
+	</div>
+	<script type="text/javascript">
+	  function homePage(){
+	     window.location.href="/recharge/index.html";
+	  }
+    </script>
+</body>
+</html>

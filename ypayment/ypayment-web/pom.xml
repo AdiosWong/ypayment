@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>ypayment-parent</artifactId>
+        <groupId>com.yiji.ypayment</groupId>
+        <version>1.0.0-20160601</version>
+    </parent>
+
+    <artifactId>ypayment-web</artifactId>
+    <name>ypayment-web</name>
+
+    <properties>
+        <deploy.skip>true</deploy.skip>
+        <start-class>com.yiji.ypayment.Main</start-class>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-boss</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>dtrace-dubbo</artifactId>
+                    <groupId>com.yiji</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-tomcat</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-velocity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.boot</groupId>
+            <artifactId>yiji-boot-starter-yedis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>dtrace-dubbo</artifactId>
+                    <groupId>com.yiji</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.yiji.ypayment</groupId>
+            <artifactId>ypayment-biz</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yiji.ypayment</groupId>
+            <artifactId>ypayment-dal</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+</project>

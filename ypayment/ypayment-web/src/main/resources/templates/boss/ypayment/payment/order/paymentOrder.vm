@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费订单</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-main">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">缴费订单管理</h2>
+			</div>
+			<!--搜索查询模块-->
+			<form action="/boss/ypayment/payment/order/paymentOrder/list.html"
+				method="post">
+				#csrfInputHidden()
+				<ul class="m-query">
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">用户id：</label> <input type="text"
+								name="search_EQ_userId" value="$!{param.EQ_userId}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">缴费订单号：</label> <input type="text"
+								name="search_EQ_paymentOrderNo" value="$!{param.EQ_paymentOrderNo}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">外部订单号：</label> <input type="text"
+								name="search_EQ_outBizNo" value="$!{param.EQ_outBizNo}"
+								class="ipt w130" />
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item">
+							<label class="lab">资源编码：</label> <input type="text"
+								name="search_EQ_resourceCode" value="$!{param.EQ_resourceCode}"
+								class="ipt w130" />
+						</div>
+						<div class="item">
+							<label class="lab">缴费状态：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select
+								name="search_EQ_paymentStatus" 
+								class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{paymentItemStatusEnum}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_paymentStatus}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+						<div class="item">
+							<label class="lab">转账状态：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select 
+							name="search_EQ_tradeStatus" 
+							class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{transferTradeStatusEnum}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_tradeStatus}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+						<div class="item">
+							<label class="lab">缴费类型：</label>
+							<div class="jqtransform jqtransform-select3 fn-left">
+							<select 
+							name="search_EQ_paymentType" 
+							class="ipt w130">
+								<option value="">请选择</option>
+								#foreach($!data in $!{paymentTypeEnum}) 
+									<option value="$!{data}" 
+									#if($!{param.EQ_paymentType}==$!{data})
+									selected="selected"
+									#end
+									>$!{data.message}</option>
+								#end
+							</select>
+						</div>
+					</li>
+					<li class="item-box fn-clear">
+						<div class="item time-item">
+							<label class="lab">创建时间：</label>
+							<div class="f-time">
+								<input type="date" name="search_GTE_rawAddTime" class="ipt"
+									value="$!{param.GTE_rawAddTime}"/>
+							</div>
+							<span class="to">-</span>
+							<div class="f-time">
+								<input type="date" name="search_LTE_rawAddTime" class="ipt"
+									value="$!{param.LTE_rawAddTime}"/>
+							</div>
+						</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="搜索">
+						<a href="/boss/ypayment/payment/order/paymentOrder/list.html" class="u-btn u-btn-green">刷新</a>
+					</li>
+				</ul>
+
+				<table class="m-table" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tr>
+						<th>&nbsp;</th>
+						<th>用户id</th>
+						<th>缴费订单号</th>
+						<th>外部订单号</th>
+						<th>缴费状态</th>
+						<th>转账状态</th>
+						<th>卡号(手机号)</th>
+						<th>资源编码<br/>资源名称</th>
+						<th>缴费类型</th>
+						<th>缴费金额</th>
+						<th>创建时间</th>
+						<th>操 作</th>
+					</tr>
+					#foreach($!data in $!{pageList.pageResults})
+					<tr>
+						<td></td>
+						<td>$!{data.userId}</td>
+						<td>$!{data.paymentOrderNo}</td>
+						<td>$!{data.outBizNo}</td>
+						<td>$!{data.paymentExtStatus.message}</td>
+						<td>$!{data.tradeStatus.message}</td>
+						<td>$!{data.userCode}</td>
+						<td>$!{data.resourceCode}<br/>$!{data.resourceName}</td>
+						<td>$!{data.paymentType.message}</td>	
+						<td>$!{data.payable}</td>
+						<td>$!{dateUtil.simpleFormat($data.rawAddTime)}</td>
+						<td>
+						<a href="/boss/ypayment/payment/order/paymentOrder/redirectItem.html?paymentOrderNo=$!{data.paymentOrderNo}">缴费结果</a>|
+						#if($!{data.tradeStatus.code} == 'FAIL')
+						    <a href="/boss/ypayment/payment/order/paymentOrder/transferTrade.html?paymentOrderNo=$!{data.paymentOrderNo}">转账</a>|
+						#end
+						<a href="/boss/ypayment/payment/order/paymentOrder/show.html?id=$!{data.id}">详情</a></td>
+					</tr>
+					#end
+				</table>
+				#parse("layout/pageList.vm")
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费绑卡</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-bd fn-clear">
+		<div class="top-title">
+			<span class="arw-d"></span>
+			<h2 class="tt">缴费绑卡</h2>
+		</div>
+		<form action="/test/payment/applyPayment.html" method="post">
+			<div class="m-query">
+        		#csrfInputHidden()
+				<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">缴费会员：</label> 
+						<label class="txt">$!{userId}</label> 
+						<input type="hidden" name="userId" value="$!{userId}" class="ipt w130" />
+        			</div>
+					<div class="item ml20">
+        				<label class="lab">缴费类型：</label> 
+						<label class="txt">$!{paymentTypeEnum.message()}</label> 
+						<input type="hidden" name="paymentType" value="$!{paymentTypeEnum}" class="ipt w130" />			
+        			</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">手机号：</label> 
+        				<input type="text" name="mobilePhoneNo" class="ipt"/>
+        			</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<label class="lab">充值金额：</label> 
+        				<div class="jqtransform jqtransform-select3 fn-left">
+        					<select name="amount" id="amount" class="ipt w130">
+        						<option value="">请选择</option>
+								<option value="10">10元</option>
+        						<option value="20">20元</option>
+								<option value="50">50元</option>
+								<option value="100">100元</option>
+        					</select>
+        				</div>
+        			</div>
+                </div>
+        		<div class="item-box fn-clear mt10">
+        			<div class="item">
+        				<input type="submit" class="u-btn u-btn-green" style="height:32px;" value="充值">
+        				<a href="javascript:history.back(-1);" class="u-btn u-btn-red">返回</a>
+                    </div>
+                </div>
+            </div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+</script>
+</body>
+</html>

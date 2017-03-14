@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("layout/header.vm")
+	<title>缴费类型</title>
+</head>
+<body>
+<div class="warp">
+	<div class="g-bd fn-clear">
+		<div>
+			<div class="top-title">
+				<span class="arw-d"></span>
+				<h2 class="tt">生活缴费</h2>
+			</div>
+			<div class="ml20 mt20">
+				<div class="m-state">
+    				<h2 class="tt">缴费查询</h4>
+    			</div>
+			    <div class="item-box fn-clear mt10 mb20">
+					<table border="1" width="70%" class="ipt">
+						<tr>
+							<td>
+								<a href="/boss/ypayment/user/userInfo/list.html">缴费用户管理</a>
+                            </td>
+							<td>
+                                <a href="/boss/ypayment/user/userInfo/list.html">/boss/ypayment/user/userInfo/list.html</a>
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<a href="/boss/ypayment/payment/binding/paymentBinding/list.html">缴费绑定信息管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/binding/paymentBinding/list.html">/boss/ypayment/payment/binding/paymentBinding/list.html</a>
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<a href="/boss/ypayment/payment/order/paymentOrder/list.html">缴费订单管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/order/paymentOrder/list.html">/boss/ypayment/payment/order/paymentOrder/list.html</a>
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<a href="/boss/ypayment/payment/item/paymentItem/list.html">缴费详情管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/item/paymentItem/list.html">/boss/ypayment/payment/item/paymentItem/list.html</a>
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<a href="/boss/ypayment/payment/trade/paymentTrade/list.html">交易转账信息管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/trade/paymentTrade/list.html">/boss/ypayment/payment/trade/paymentTrade/list.html</a>
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								<a href="/boss/ypayment/payment/undo/undoPayment/list.html">返销管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/undo/undoPayment/list.html">/boss/ypayment/payment/undo/undoPayment/list.html</a>
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<a href="/boss/ypayment/management/configment/config/list.html">配置管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/management/configment/config/list.html">/boss/ypayment/management/configment/config/list.html</a>
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								<a href="/boss/ypayment/payment/platform/platform/list.html">业务平台</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/platform/platform/list.html">/boss/ypayment/payment/platform/platform/list.html</a>
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								<a href="/boss/ypayment/payment/deduct/deductDeposit/list.html">代扣管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/deduct/deductDeposit/list.html">/boss/ypayment/payment/deduct/deductDeposit/list.html</a>
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								<a href="/boss/ypayment/payment/repay/repayOrder/list.html">补缴订单管理</a>
+                            </td>
+							<td>
+								<a href="/boss/ypayment/payment/repay/repayOrder/list.html">/boss/ypayment/payment/repay/repayOrder/list.html</a>
+                            </td>
+                        </tr>
+                    </table>
+				</div>
+				<div class="m-state">
+    				<h2 class="tt">定时任务</h4>
+    			</div>
+    			<div class="item-box fn-clear mt10">
+	                <div class="item">
+						<a href="/timingTask/queryHangupPaymentOrder.json" class="u-btn u-btn-green">缴费订单状态</a>
+						<a href="/timingTask/paymentOrderTransferTrade.json" class="u-btn u-btn-green">解冻转账</a>
+						<a href="/timingTask/apiAsyncNotify.json" class="u-btn u-btn-green">异步通知</a>
+					</div>
+                </div>
+                <div class="m-state">
+    				<h2 class="tt">中信对账</h4>
+    			</div>
+                <div class="item-box fn-clear mt10">
+                    <li class="item-box fn-clear">
+                        <form action="/timingTask/checkZhongxinStatus.json" method="post">
+							<div class="item time-item">
+								<div class="f-time">
+									<input type="date" name="dateStr" class="ipt"
+										value="$!{param.GTE_rawAddTime}"/>
+								</div>
+							</div><input type="submit" class="u-btn u-btn-green" style="height:32px;" value="中信对账">
+						</form>
+					</li>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    seajs.use($_GLOBAL.mode +'demo');
+	function toPage(paymentType){
+    	var userId = $("#userId").val();
+    	if(userId == '' || userId == null) {
+    		alert("请输入缴费会员ID(易极付)");
+    		return false;
+    	}
+		location.href = "/test/payment/toPaymentBinding.html?paymentType="+paymentType+"&userId="+userId;
+	}
+</script>
+</body>
+</html>
